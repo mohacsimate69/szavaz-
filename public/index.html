@@ -7,11 +7,18 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>szevasz</h1>
-    <form action="/szavazás" method="post">
-    <input type="radio" name="szavazas" id="1" value="1">
-    <input type="radio" name="szavazas" id="2" value="2">
-    <input type="radio" name="szavazas" id="3" value="3">
+    <h1>Összekevered-e a tejbegrízt a kakaóval</h1>
+    <form action="/szavazas" method="post">
+    <input type="radio" name="szavazas" id="1" value="igen">
+    <label for="1">igen</label>
+    <br>
+    <input type="radio" name="szavazas" id="2" value="nem">
+    <label for="2">nem</label>
+    <br>
+    <input type="radio" name="szavazas" id="3" value="milyen kakaó">
+    <label for="3">milyen kakaó</label>
+    <br>
+    <button>küldés</button>
     </form>
 </body>
 </html>
