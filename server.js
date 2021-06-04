@@ -8,7 +8,7 @@ const app = express();
 app.get("/hello", function(request, response)  {
     response.end("helloszia")
 })
-app.listen(9000);
+
 app.use(express.static("public"));
 
 const schema = new mongoose.Schema({
@@ -22,11 +22,14 @@ app.use(express.urlencoded());
 
 app.post("/szavazas", function(request, response)  {
     console.log(request.body);
-    model.finfOne({nev: request.body.szavazas}, function(err, doc){
+
+    model.findOne({nev: request.body.szavazas}, function(err, doc){
         if(doc){
-            console.log(request.body.osszeg+'már létezik');
+            console.log(request.body.osszeg+' már létezik');
+            doc.szavazatok++;
+            doc.save();
         }else{
-            console.log(request.body.osszeg+'még nem létezik');
+            console.log(request.body.osszeg+' még nem létezik');
             new model({
                 nev: request.body.osszeg,
                 szavazatok:1
@@ -36,5 +39,11 @@ app.post("/szavazas", function(request, response)  {
 
     
 
-    response.redirect("/");
+    response.redirect("/eredmeny.html");
 })
+app.get('/eredmenyek', function(req,res){
+    model.find({},function(error,dokumentumok){
+        res.send(JSON.stringify(dokumentumok));
+    });
+});
+app.listen(9000);
